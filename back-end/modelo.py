@@ -109,10 +109,10 @@ if __name__ == "__main__":
     db.session.add(c2)
     db.session.commit()
     
-    # exibir a pessoa
+    # exibir a cadeira
     print(c2)
 
-    # exibir a pessoa no format json
+    # exibir a cadeira no format json
     print(c2.json())
 
     # novo resultado de exame
@@ -123,42 +123,36 @@ if __name__ == "__main__":
     print(f"Inspecao realizada: {e1}")
     print(f"Inspecao realizada em json: {e1.json()}")
     # resultado:
-    # Exame realizado: 02/02/2020, Inspecao rodas, Rodas em perfeito estado, João da Silva[id=1], josilva@gmail.com, 47 99012 3232
-    # Exame realizado em json: {'id': 1, 'data': '02/02/2020', 'nome': 'Inspecao rodas', 'resultado': 'Rodas em perfeito estado', 'cadeira_id': 1, 'cadeira': {'id': 1, 'nome': 'Thonet', 'cor': 'Vermelho', 'fabricante': 'Cavaletti', 'descricao': 'Cadeira confortável', 'material': 'Couro'}}
-    # vamos criar um respirador que está disponível
+    # Inspecao realizada: 02/02/2020, Inspecao rodas, Rodas em perfeito estado, 
+    #           - Cadeira(1)
+    #            - nome: Thonet
+    #            - cor: Vermelho
+    #            - fabricante: Cavaletti
+    #            - descrição: Cadeira confortável
+    #            - material: Couro
+    # Inspecao realizada em json: {'id': 1, 'data': '02/02/2020', 'nome': 'Inspecao rodas', 'resultado': 'Rodas em perfeito estado', 'pessoa_id': 1, 'pessoa': {'id': 1, 'nome': 'Thonet', 'cor': 'Vermelho', 'fabricante': 'Cavaletti', 'descricao': 'Cadeira confortável', 'material': 'Couro'}}
+
     r1 = EmprestimoCadeiras(codigo="001A", data_aquisicao="24/03/2020")
     db.session.add(r1)
     db.session.commit()
     print(f"Emprestimo de Cadeira 1: {r1}")
     print(f"Emprestimo de Cadeira 1 (em json): {r1.json()}")
     # resultado:
-    # EmprestimoCadeiras 1: Cadeira 001A adquirido em 24/03/2020
-    # EmprestimoCadeiras 1 (em json): {'id': 1, 'codigo': '001A', 'data_aquisicao': '24/03/2020', 'cadeira_id': '', 'cadeira': '', 'data_emprestimo': ''}
+    # Emprestimo de Cadeira 1: EmprestimoCadeira 001A adquirido em 24/03/2020
+    # Emprestimo de Cadeira 1 (em json): {'id': 1, 'codigo': '001A', 'data_aquisicao': '24/03/2020', 'cadeira_id': '', 'cadeira': '', 'data_emprestimo': ''}
 
-    # agora, um respirador emprestado para João
     r2 = EmprestimoCadeiras(codigo="002B", data_aquisicao="01/02/2020", cadeira = c1, data_emprestimo="04/02/2020")
     db.session.add(r2)
     db.session.commit()
     print(f"Emprestimo de Cadeira 2: {r2}")
     print(f"Emprestimo de Cadeira 2 (em json): {r2.json()}")
     # resultado:
-    # Emprestimo de Cadeira 2: Cadeira 002B adquirido em 01/02/2020, cadeira Thonet, Vermelho, Cavaletti, Cadeira confortável, Couro emprestada desde 01/02/2020
-    # Emprestimo de Cadeira 2 (em json): {'id': 2, 'codigo': '002B', 'data_aquisicao': '01/02/2020', 'cadeira_id': 1, 'cadeira': {'id': 1, 'nome': 'Thonet', 'cor': 'Vermelho', 'fabricante': 'Cavaletti', 'descricao': 'Cadeira confortável', 'material': 'Couro'}}
-    # CONTEUDO JSON formatado no site: https://jsonformatter.curiousconcept.com/#
-    '''
-    {
-      "id":2,
-      "codigo":"002B",
-      "data_aquisicao":"01/02/2020",
-      "cadeira_id":1,
-      "cadeira":{
-        "id":1,
-        "nome":"Thonet",
-        "cor":"Vermelho",
-        "fabricante":"Cavaletti"
-        "descricao":"Cadeira comfortável"
-        "material":"Couro"
-      },
-      "data_emprestimo":"04/02/2020"
-    }
-    '''
+    # Emprestimo de Cadeira 2: EmprestimoCadeira 002B adquirido em 01/02/2020, cadeira
+    #            - Cadeira(1)
+    #            - nome: Thonet
+    #            - cor: Vermelho
+    #            - fabricante: Cavaletti
+    #            - descrição: Cadeira confortável
+    #            - material: Couro
+    #             emprestada desde 01/02/2020
+    # Emprestimo de Cadeira 2 (em json): {'id': 2, 'codigo': '002B', 'data_aquisicao': '01/02/2020', 'cadeira_id': 1, 'cadeira': {'id': 1, 'nome': 'Thonet', 'cor': 'Vermelho', 'fabricante': 'Cavaletti', 'descricao': 'Cadeira confortável', 'material': 'Couro'}, 'data_emprestimo': '04/02/2020'}
