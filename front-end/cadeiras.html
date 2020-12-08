@@ -22,8 +22,18 @@
                 <div class="navbar-nav mr-auto">
                     <span class="navbar-text">Cadastro de cadeiras</span>
                     <a class="nav-item nav-link" href="#" id="linkInicio">Início</a>
-                    <a class="nav-item nav-link" href="#" id="linkListarCadeiras">Listar</a>
-                    <a class="nav-item nav-link" data-toggle="modal" data-target="#modalIncluirCadeira" href="#">Incluir</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" 
+                        id="navbarDropdownMenuLink" data-toggle="dropdown" 
+                        aria-haspopup="true" aria-expanded="false">
+                          Cadastros
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <a class="dropdown-item" href="#" id="linkListarCadeiras">Cadeiras</a>
+                          <a class="dropdown-item" href="#" id="linkListarInspecao">Inspeção</a> 
+                          <a class="dropdown-item" href="#" id="linkListarEmprestimo">Empréstimo</a>
+                        </div>
+                    </li>
                 </div>
             </div>
 
@@ -35,16 +45,15 @@
 
         <div id="corpoDaPagina">
 
-            <div id="conteudoInicial" class="invisible">
+            <div id="conteudoInicial" class="">
                 Bem vindo ao cadastro de cadeiras.
             </div>
 
-            <!-- janela modal de inclusão de pessoa -->
             <div class="modal fade" id="modalIncluirCadeira" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Incluir cadeira</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Incluir Cadeira</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -87,30 +96,166 @@
                 </div>
             </div>
 
-            <!-- tabela de listagem de pessoas -->
-            <table class="table invisible table-striped table-hover" id="tabelaCadeiras">
-                <thead>
-                    <!-- primeira linha da tabela: títulos -->
-                    <tr>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Telefone</th>
-                    </tr>
-                </thead>
-                <tbody id="corpoTabelaCadeiras">
-                    <!-- aqui serão exibidas as pessoas -->
-                </tbody>
-            </table>
+            <div class="container" id="cadastroCadeiras">
+                <h5>Cadastro Cadeiras</h5>
+                <a class="nav-item nav-link" data-toggle="modal" 
+                data-target="#modalIncluirCadeira" href="#"><span class="material-icons">add</span></a>
+                
+                <table class="table table-striped table-hover" id="tabelaCadeiras">
+                    <thead>
+                        <tr>
+                            <th scope="col">Cadeira</th>
+                            <th scope="col">Cor</th>
+                            <th scope="col">Fabricante</th>
+                            <th scope="col">Descrição</th>
+                            <th scope="col">Material</th>
 
+                        </tr>
+                    </thead>
+                    <tbody id="corpoTabelaCadeiras">
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Inspecao Cadeira -->
+            <div class="modal fade" id="modalIncluirInspecao" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Incluir Inspeção Cadeira</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="campoData">Data</label>
+                                    <input type="date" class="form-control" id="campoData" aria-describedby="dataHelp" placeholder="Data">
+                                    <small id="dataHelp" class="form-text text-muted">Informe a data da Inspeção</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="campoNomeInspecao">Nome</label>
+                                    <input type="text" class="form-control" id="campoNomeInspecao" aria-describedby="nomeInspecaoHelp" placeholder="Nome">
+                                    <small id="nomeInspecaoHelp" class="form-text text-muted">Informe o nome da Inspeção</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="campoResultado">Resultado</label>
+                                    <input type="text" class="form-control" id="campoResultado" aria-describedby="resultadoHelp" placeholder="Resultado">
+                                    <small id="resultadoHelp" class="form-text text-muted">Informe o Resultado da Inspeção</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="campoCadeira">Cadeira</label>
+                                    <select class="form-control" id="campoCadeira" 
+                                      aria-describedby="cadeiraHelp" placeholder="Cadeira">
+                                    </select> 
+                                    <img id="loading_campoCadeira" src="img/loading_combo.gif" width="50" class="img-fluid d-none" alt="Carregando cadeiras">                                   
+                                    <small id="cadeiraHelp" class="form-text text-muted">Selecione a Cadeira que será feita a Inspeção.</small>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button id="btIncluirInspecao" type="button" class="btn btn-primary">Incluir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container " id="cadastroInspecao">
+                <h5>Cadastro de Inspeção</h5>
+                <a class="nav-item nav-link" data-toggle="modal" 
+                data-target="#modalIncluirInspecao" href="#"><span class="material-icons">add</span></a>
+                
+                <table class="table table-striped table-hover" id="tabelaInspecao">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome da Cadeira</th>
+                            <th scope="col">Fabricante</th>
+                            <th scope="col">Nome da Inspeção</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Resultado</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="corpoTabelaInspecao">
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Emprestimo Cadeiras -->
+            <div class="modal fade" id="modalIncluirEmprestimo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Incluir Empréstimo</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="campoCodigo">Código</label>
+                                    <input type="text" class="form-control" id="campoCodigo" aria-describedby="codigoHelp" placeholder="Codigo">
+                                    <small id="codigoHelp" class="form-text text-muted">Informe o código do Empréstimo</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="campoDataAquisicao">Data de Aquisição</label>
+                                    <input type="date" class="form-control" id="campoDataAquisicao" aria-describedby="dataAquisicaoHelp" placeholder="DataAquisicao">
+                                    <small id="dataAquisicaoHelp" class="form-text text-muted">Informe a data de aquisição</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="campoDataEmprestimo">Data de Empréstimo</label>
+                                    <input type="date" class="form-control" id="campoDataEmprestimo" aria-describedby="dataEmprestimoHelp" placeholder="DataEmprestimo">
+                                    <small id="dataEmprestimoHelp" class="form-text text-muted">Informe a data do empréstimo</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="campoCadeiraEmprestimo">Cadeira</label>
+                                    <select class="form-control" id="campoCadeiraEmprestimo" 
+                                      aria-describedby="emprestimoHelp" placeholder="Emprestimo">
+                                    <!-- opções serão preenchidas via javascript -->
+                                    </select> 
+                                    <img id="loading_campoCadeiraEmprestimo" src="img/loading_combo.gif" width="50" class="img-fluid d-none" alt="Carregando emprestimos">                                   
+                                    <small id="emprestimoHelp" class="form-text text-muted">Selecione a Cadeira que foi Emprestada.</small>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button id="btIncluirEmprestimo" type="button" class="btn btn-primary">Incluir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container" id="cadastroEmprestimo">
+                <h5>Cadastro Emprestimo</h5>
+                <a class="nav-item nav-link" data-toggle="modal" 
+                data-target="#modalIncluirEmprestimo" href="#"><span class="material-icons">add</span></a>
+                
+                <table class="table table-striped table-hover" id="tabelaEmprestimo">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome da Cadeira</th>
+                            <th scope="col">Fabricante</th>
+                            <th scope="col">Código</th>
+                            <th scope="col">Data de Aquisição</th>
+                            <th scope="col">Data de Empréstimo</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="corpoTabelaEmprestimo">
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <!-- fim da div corpo da página -->
     </div>
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <!-- código específico do front-end -->
     <script src="js/meuscript.js"></script>
 </body>
 

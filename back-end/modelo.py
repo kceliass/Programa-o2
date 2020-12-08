@@ -1,7 +1,7 @@
 from config import *
 
 class Cadeira(db.Model):
-    # atributos da pessoa
+    # atributos da cadeira
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(254))
     cor = db.Column(db.String(254))
@@ -9,7 +9,7 @@ class Cadeira(db.Model):
     descricao= db.Column(db.String(254))
     material = db.Column(db.String(254))
 
-    # método para expressar a pessoa em forma de texto
+    # método para expressar a cadeira em forma de texto
     def __str__(self):
         return f'''
                 - Cadeira({self.id}) 
@@ -51,8 +51,8 @@ class InspecaoRealizada(db.Model):
             "data":self.data,
             "nome":self.nome,
             "resultado":self.resultado,
-            "pessoa_id":self.cadeira_id,
-            "pessoa":self.cadeira.json() 
+            "cadeira_id":self.cadeira_id,
+            "cadeira":self.cadeira.json() 
         }
 
 class EmprestimoCadeiras(db.Model):
@@ -130,7 +130,7 @@ if __name__ == "__main__":
     #            - fabricante: Cavaletti
     #            - descrição: Cadeira confortável
     #            - material: Couro
-    # Inspecao realizada em json: {'id': 1, 'data': '02/02/2020', 'nome': 'Inspecao rodas', 'resultado': 'Rodas em perfeito estado', 'pessoa_id': 1, 'pessoa': {'id': 1, 'nome': 'Thonet', 'cor': 'Vermelho', 'fabricante': 'Cavaletti', 'descricao': 'Cadeira confortável', 'material': 'Couro'}}
+    # Inspecao realizada em json: {'id': 1, 'data': '02/02/2020', 'nome': 'Inspecao rodas', 'resultado': 'Rodas em perfeito estado', 'cadeira_id': 1, 'cadeira': {'id': 1, 'nome': 'Thonet', 'cor': 'Vermelho', 'fabricante': 'Cavaletti', 'descricao': 'Cadeira confortável', 'material': 'Couro'}}
 
     r1 = EmprestimoCadeiras(codigo="001A", data_aquisicao="24/03/2020")
     db.session.add(r1)
